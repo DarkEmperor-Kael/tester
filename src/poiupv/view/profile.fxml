@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="10" style="-fx-padding: 20; -fx-background-color: #0a54ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
+  
+  <Text fill="#cecece" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Perfil de Usuario" />
+  
+  <GridPane hgap="10" vgap="10">
+    <Label text="Nombre de usuario:" textFill="#cecece" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+    <Label text="Correo electrónico:" textFill="#cecece" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="Contraseña:" textFill="#cecece" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <Label text="Edad:" textFill="#cecece" GridPane.rowIndex="4" />
+      <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+  </GridPane>
+
+  <Button onAction="#saveProfile" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" text="Guardar Perfil" />
+</VBox>

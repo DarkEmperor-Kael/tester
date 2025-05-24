@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400" prefWidth="400.0" style="-fx-background-color: #0a54ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+            
+
+    <children>
+        <VBox alignment="CENTER" layoutX="12.8" prefHeight="360.0" prefWidth="367.0" spacing="15" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <Label style="-fx-font-size: 20px;" text="Menú Principal" textFill="WHITE" />
+            <Button onAction="#onStartProblems" prefWidth="150.0" text="Resolver Problemas" />
+            <Button onAction="#onOpenMap" prefWidth="150.0" text="Carta Náutica" />
+            <Button onAction="#onViewResults" prefWidth="150.0" text="Ver Resultados" />
+            <Button onAction="#onViewProfile" prefWidth="150.0" text="Ver Perfil" />
+            <Button onAction="#onLogout" prefWidth="150.0" text="Cerrar Sesión" />
+        </VBox>
+    </children>
+</AnchorPane>
