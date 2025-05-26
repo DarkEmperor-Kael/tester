@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="576.0" prefWidth="811.0" style="-fx-background-color: #92C5FC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.controller.MainMenuController">
     <children>
@@ -73,7 +74,15 @@
                   </Circle>
                </graphic>
                 </MenuButton>
-            <Label fx:id="usuario" alignment="TOP_LEFT" text="Nombre de usuario: " textFill="GREY" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="usuario" alignment="TOP_LEFT" layoutX="33.0" layoutY="29.0" text="Nombre de usuario" textAlignment="CENTER" textFill="GREY" AnchorPane.rightAnchor="-25.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
             </children>
         </HBox>
     </children>
