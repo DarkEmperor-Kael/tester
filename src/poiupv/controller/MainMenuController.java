@@ -18,7 +18,17 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 import java.io.*;
+import model.User;
 import poiupv.utils.DatabaseConnector;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import poiupv.controller.RegisterController;
+
 
 public class MainMenuController implements Initializable {
 
@@ -36,7 +46,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Label usuario;
-
+    private Image avatarImage;
     private String nombreUsuario;
 
     public void setNombreUsuario(String nombreUsuario) {
@@ -44,34 +54,53 @@ public class MainMenuController implements Initializable {
         cargarDatosUsuario();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Por si acaso nos hiciera falta
-    }
+@Override
+public void initialize(URL url, ResourceBundle resourceBundle) {
+    //Por si acaso
+}
 
-    private void cargarDatosUsuario() {
-        try (Connection conn = DatabaseConnector.connect()) {
-            String sql = "SELECT * FROM user WHERE nickName = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nombreUsuario);
-            ResultSet rs = stmt.executeQuery();
+private void cargarDatosUsuario() {
+    try (Connection conn = DatabaseConnector.connect()) {
+        String sql = "SELECT nickName, avatar FROM user WHERE nickName = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, nombreUsuario);
+        ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                usuario.setText(rs.getString("nickName"));
+        if (rs.next()) {
+            usuario.setText(rs.getString("nickName"));
 
-                // Suponiendo que avatar es un BLOB
-                byte[] avatarBytes = rs.getBytes("avatar");
-                if (avatarBytes != null) {
-                    InputStream avatarStream = new ByteArrayInputStream(avatarBytes);
-                    Image avatarImage = new Image(avatarStream);
-                    avatarCircle.setFill(new ImagePattern(avatarImage));
+            InputStream avatarStream = rs.getBinaryStream("avatar");
+
+            if (avatarStream != null) {
+                Image image = new Image(avatarStream);
+                if (!image.isError()) {
+                    setAvatarImage(image);
+                } else {
+                    System.err.println("Error al cargar la imagen (formato no soportado).");
+                    setAvatarImage(null);
                 }
+            } else {
+                setAvatarImage(null);
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
+
+
+public void setAvatarImage(Image avatarImage) {
+    this.avatarImage = avatarImage;
+    if (avatarImage != null) {
+        Image mirroredImage = flipImageHorizontally(avatarImage);
+        avatarCircle.setFill(new ImagePattern(mirroredImage));
+    } else {
+        Image defaultImage = new Image(getClass().getResourceAsStream("/poiupv/utils/1144760.png"));
+        avatarCircle.setFill(new ImagePattern(defaultImage));
+    }
+}
+
+
 
     @FXML
 private void onLogout(ActionEvent event) {
@@ -80,7 +109,7 @@ private void onLogout(ActionEvent event) {
         Stage stage = (Stage) usuario.getScene().getWindow(); // Usa aquí un nodo real
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/poiupv/view/Login.fxml"));
         Parent root = loader.load();
-
+        System.out.println("Cerrar sesión");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -93,19 +122,30 @@ private void onLogout(ActionEvent event) {
     @FXML
     private void onViewProfile(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/poiupv/Perfil.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ProfileController.setNombreUsuarioEstatico(nombreUsuario);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/poiupv/view/Profile.fxml"));
+            Stage stage = (Stage) usuario.getScene().getWindow();
             Scene scene = new Scene(loader.load());
-
-            // Opcional: pasar el usuario a la vista Perfil
-            // PerfilController controller = loader.getController();
-            // controller.setNombreUsuario(nombreUsuario);
-
             stage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+    private Image flipImageHorizontally(Image originalImage) {
+    int width = (int) originalImage.getWidth();
+    int height = (int) originalImage.getHeight();
+
+    WritableImage flippedImage = new WritableImage(width, height);
+    PixelReader reader = originalImage.getPixelReader();
+    PixelWriter writer = flippedImage.getPixelWriter();
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            writer.setArgb(width - x - 1, y, reader.getArgb(x, y));
+        }
+    }
+
+    return flippedImage;
 }
 
+}
