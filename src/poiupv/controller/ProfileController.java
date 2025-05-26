@@ -102,7 +102,7 @@ private void onAvatarSelect() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Seleccionar avatar");
     fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg")
+        new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg")
     );
 
     File selectedFile = fileChooser.showOpenDialog(avatarCircle.getScene().getWindow());
