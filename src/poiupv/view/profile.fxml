@@ -1,45 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="10" style="-fx-padding: 20; -fx-background-color: #0a54ff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
-  
-  <Text fill="#cecece" style="-fx-font-size: 20; -fx-font-weight: bold;" text="Perfil de Usuario" />
-  
-  <GridPane hgap="10" vgap="10">
-    <Label text="Nombre de usuario:" textFill="#cecece" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-    <TextField fx:id="txtUsername" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+<AnchorPane prefHeight="606.0" prefWidth="844.0" style="-fx-background-color: #92C5FC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.controller.ProfileController">
 
-    <Label text="Correo electrónico:" textFill="#cecece" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+   <children>
 
-    <Label text="Contraseña:" textFill="#cecece" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <!-- Panel lateral izquierdo -->
+      <AnchorPane prefHeight="606.0" prefWidth="266.0" style="-fx-background-color: gray;">
+         <children>
+            <ImageView fx:id="barquito" fitHeight="266.0" fitWidth="283.0" layoutX="-7.0" layoutY="202.0" preserveRatio="true">
+               <image>
+                  <Image url="@../utils/Pngtreetop%20ship%20logo%20trends%20for_20727596.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="Retroceso" layoutX="79.0" layoutY="555.0" onAction="#onBack" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #cececblacke;" text="Volver">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" layoutY="35.0" prefHeight="106.0" prefWidth="266.0" text="Perfil" textFill="#92c5fc">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
 
-    <Label text="Edad:" textFill="#cecece" GridPane.rowIndex="4" />
-      <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
-  </GridPane>
+      <!-- Botón para seleccionar avatar -->
+      <Button fx:id="Selecciom" layoutX="481.0" layoutY="208.0" onAction="#onAvatarSelect" prefHeight="27.0" prefWidth="133.0" style="-fx-background-color: black;" text="Seleccionar avatar" textFill="#92c5fc">
+         <cursor><Cursor fx:constant="HAND" /></cursor>
+         <font><Font name="System Bold" size="12.0" /></font>
+      </Button>
 
-  <Button onAction="#saveProfile" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" text="Guardar Perfil" />
-</VBox>
+      <!-- Título de la sección -->
+      <Label fx:id="Modificacion" layoutX="290.0" layoutY="263.0" prefHeight="27.0" prefWidth="411.0" style="-fx-font-weight: bold;" text="Puedes modificar los siguientes campos: " textFill="GREY">
+         <font><Font size="18.0" /></font>
+      </Label>
+      <PasswordField fx:id="passwordField" layoutX="343.0" layoutY="318.0" prefHeight="38.0" prefWidth="307.0" promptText="Contraseña" />
+      <TextField fx:id="emailField" layoutX="342.0" layoutY="396.0" prefHeight="38.0" prefWidth="411.0" promptText="Correo electrónico" />
+      <DatePicker fx:id="birthdatePicker" layoutX="343.0" layoutY="475.0" prefHeight="36.0" prefWidth="253.0" promptText="Fecha de nacimiento" />
+      <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="288.0" layoutY="475.0" preserveRatio="true">
+         <image><Image url="@../utils/42371.png" /></image>
+      </ImageView>
+      <ImageView fx:id="logo" fitHeight="38.0" fitWidth="36.0" layoutX="288.0" layoutY="319.0" preserveRatio="true">
+         <image><Image url="@../utils/icons8-lock-24.png" /></image>
+      </ImageView>
+      <ImageView fx:id="correo" fitHeight="46.0" fitWidth="52.0" layoutX="283.0" layoutY="392.0" preserveRatio="true">
+         <image><Image url="@../utils/Pngtreeemail%20icon%20design_5571212.png" /></image>
+      </ImageView>
+      <Label fx:id="passwordError" layoutX="295.0" layoutY="357.0" text="Entre 8 y 20 caracteres, mínimo una mayúscula, una minúscula, un número y un especial(!@#$%&amp;*()-+=)" textFill="RED" visible="false" />
+      <Label fx:id="emailError" layoutX="295.0" layoutY="435.0" text="Ha de ser en el siguiente formato: usuario@dominio.extensión" textFill="RED" visible="false" />
+      <Label fx:id="birthdateError" layoutX="295.0" layoutY="512.0" text="Has de tener mínimo 16 años" textFill="RED" visible="false" />
+      <Label fx:id="generalError" layoutX="295.0" layoutY="532.0" text="Por favor, rellena todos los campos obligatorios" textFill="RED" visible="false" />
+
+      <!-- Botón de crear -->
+      <Button fx:id="actualizar" layoutX="472.0" layoutY="552.0" onAction="#onUpdateProfile" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #cececblacke;" text="Actualizar datos">
+         <font><Font name="System Bold" size="16.0" /></font>
+         <cursor><Cursor fx:constant="HAND" /></cursor>
+      </Button>
+      <Circle fx:id="avatarCircle" fill="#92c5fc" layoutX="548.0" layoutY="147.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="user" layoutX="344.0" layoutY="43.0" text="Nombre de usuario: " textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentPasswordLabel" layoutX="342.0" layoutY="294.0" text="contra" />
+      <Label fx:id="currentEmailLabel" layoutX="342.0" layoutY="375.0" text="email" />
+      <Label fx:id="currentBirthdateLabel" layoutX="341.0" layoutY="457.0" text="Fecha" />
+
+   </children>
+</AnchorPane>
