@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>You Will Be Mine</title>
+
+<style>
+  /* === FONDO DE FUEGO ANIMADO === */
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at bottom,
+      #ff0000 0%,   /* rojo */
+      #ff6600 30%,  /* naranja */
+      #c73805 60%,  /* amarillo */
+      #ffe601 100%  /* blanco */
+    );
+    background-size: 100% 200%;
+    animation: fuego 6s linear infinite;
+
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @keyframes fuego {
+    0%   { background-position: 50% 100%; }
+    50%  { background-position: 50% 0%; }
+    100% { background-position: 50% 100%; }
+  }
+
+  /* CONTENEDOR */
+  .container {
+    position: relative;
+    text-align: center;
+  }
+
+  /* FLAMES (dos capas animadas sobre el texto) */
+  .flames {
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 80%, rgba(255,140,0,0.5), transparent 70%),
+                radial-gradient(circle at 50% 100%, rgba(255,40,0,0.4), transparent 80%);
+    mix-blend-mode: lighten;
+    animation: fire 3.5s ease-in-out infinite alternate;
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .flames::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 80%, rgba(255,100,0,0.35), transparent 70%),
+                radial-gradient(circle at 50% 100%, rgba(255,0,0,0.3), transparent 85%);
+    mix-blend-mode: lighten;
+    animation: fire2 5.5s ease-in-out infinite alternate;
+    filter: blur(60px);
+  }
+
+  @keyframes fire {
+    0%   { transform: translateX(-50%) scale(1.05) rotate(-1deg); }
+    50%  { transform: translateX(-50%) scale(1.12) rotate(1deg); }
+    100% { transform: translateX(-50%) scale(1.08) rotate(-1deg); }
+  }
+
+  @keyframes fire2 {
+    0%   { transform: scale(1.1) rotate(1deg); }
+    50%  { transform: scale(1.16) rotate(-1deg); }
+    100% { transform: scale(1.12) rotate(1deg); }
+  }
+
+  /* TEXTO SANGRIENTO */
+  h1 {
+    font-size: clamp(2.5rem, 10vw, 7rem);
+    color: #ff1a1a;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+
+    text-shadow:
+      0 0 4px rgba(0,0,0,0.9),
+      0 0 12px rgba(255,0,0,0.35),
+      0 2px 0 #000,
+      0 6px 12px rgba(0,0,0,0.7),
+      -3px -3px 6px rgba(50,0,0,0.8);
+
+    position: relative;
+  }
+
+  @keyframes drip {
+    0%   { transform: translateX(-50%) translateY(0); }
+    50%  { transform: translateX(-50%) translateY(4px); }
+    100% { transform: translateX(-50%) translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="flames"></div>
+  <h1>You Will Be Mine</h1>
+</div>
+
+</body>
+</html>
+
